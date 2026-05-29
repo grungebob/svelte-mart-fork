@@ -2,25 +2,27 @@
 	import Minus from 'phosphor-svelte/lib/Minus';
 	import Plus from 'phosphor-svelte/lib/Plus';
 	import Trash from 'phosphor-svelte/lib/Trash';
+
+	let { cartProduct } = $props();
 </script>
 
 <div class="flex items-center justify-between py-2 border-b border-gray-200">
 	<div class="flex items-center">
 		<img
-			src="https://via.placeholder.com/50"
+			src={cartProduct.product.thumbnail}
 			alt="Product"
 			class="size-12 object-cover rounded mr-4"
 		/>
 		<div>
-			<p class="font-medium">Product Name</p>
-			<p class="text-sm">$19.99 each</p>
+			<p class="font-medium">{cartProduct.product.title}</p>
+			<p class="text-sm">${cartProduct.product.price} each</p>
 		</div>
 	</div>
 	<div class="flex items-center">
 		<button class="p-1 hover:bg-gray-200 rounded" aria-label="Subtract 1 from quantity">
 			<Minus class="size-4" />
 		</button>
-		<span class="mx-2">2</span>
+		<span class="mx-2">{cartProduct.quantity}</span>
 		<button class="p-1 hover:bg-gray-200 rounded" aria-label="Add 1 to quantity">
 			<Plus class="size-4" />
 		</button>

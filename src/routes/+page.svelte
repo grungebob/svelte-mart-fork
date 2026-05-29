@@ -2,9 +2,11 @@
 	import CartItem from './cart-item.svelte';
 	import ShoppingCart from 'phosphor-svelte/lib/ShoppingCart';
 	import X from 'phosphor-svelte/lib/X';
+	import type { CartProduct } from '$lib/types';
 
 	let { data } = $props();
 	let cartOpen = $state(false);
+	let cartProducts = $state<CartProduct[]>([]);
 </script>
 
 <div class="flex items-center bg-gray-300 p-4">
@@ -21,7 +23,9 @@
 				<button onclick={() => (cartOpen = false)} class="absolute right-4 top-4 rounded-full p-1 hover:bg-gray-100">
 					<X class="size-4" />
 				</button>
-				<CartItem />
+				{#each cartProducts as cartProduct}
+					<CartItem {cartProduct} />
+				{/each}
 				<div class="mt-4 border-gray-200 pt-4">
 					<p class="text-lg font-semibold">Total: $39.98</p>
 				</div>
@@ -43,6 +47,13 @@
 					<p class="text-xl font-bold">${product.price}</p>
 					<button
 						class="rounded-full bg-sky-600 px-4 py-2 text-white transition-colors duration-300 hover:bg-sky-700"
+						onclick={() => {
+							cartProducts.push({
+								id: crypto.randomUUID(),
+								product,
+								quantity: 1
+							});
+						}}
 					>
 						Add to cart
 					</button>
