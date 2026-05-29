@@ -14,7 +14,10 @@
 			total += product.quantity;
 		}
 		return total;
-	}) 
+	});
+	const removeFromCart = (id: string) => {
+		cartProducts = cartProducts.filter((product) => product.id !== id);
+	};
 </script>
 
 <div class="flex items-center bg-gray-300 p-4">
@@ -32,7 +35,7 @@
 					<X class="size-4" />
 				</button>
 				{#each cartProducts as _, index}
-					<CartItem bind:cartProduct={cartProducts[index]} />
+					<CartItem bind:cartProduct={cartProducts[index]} {removeFromCart} />
 				{/each}
 				<div class="mt-4 border-gray-200 pt-4">
 					<p class="text-lg font-semibold">Total: $39.98</p>
