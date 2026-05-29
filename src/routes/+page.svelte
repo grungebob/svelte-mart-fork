@@ -4,19 +4,21 @@
 	import X from 'phosphor-svelte/lib/X';
 
 	let { data } = $props();
+	let cartOpen = $state(false);
 </script>
 
 <div class="flex items-center bg-gray-300 p-4">
 	<span class="text-lg font-bold">SvelteMart</span>
 	<div class="relative ml-auto flex items-center">
-		<button class="flex items-center rounded-full bg-sky-600 px-4 py-2 text-white hover:bg-sky-700">
+		<button onclick={() => (cartOpen = !cartOpen)} class="flex items-center rounded-full bg-sky-600 px-4 py-2 text-white hover:bg-sky-700">
 			<ShoppingCart class="mr-2 size-5" />
 			<span>Cart (2)</span>
 		</button>
+		{#if cartOpen}
 		<div class="absolute right-0 top-8 z-10 mt-2 w-80 rounded-lg bg-white shadow-xl">
 			<div class="relative p-4">
 				<h2 class="mb-4 text-lg font-semibold">Your Cart</h2>
-				<button class="absolute right-4 top-4 rounded-full p-1 hover:bg-gray-100">
+				<button onclick={() => (cartOpen = false)} class="absolute right-4 top-4 rounded-full p-1 hover:bg-gray-100">
 					<X class="size-4" />
 				</button>
 				<CartItem />
@@ -25,6 +27,7 @@
 				</div>
 			</div>
 		</div>
+		{/if}
 	</div>
 </div>
 
